@@ -1,77 +1,59 @@
+.nav-container {
+    display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  width: 100%;
+  height: 9vh;
+}
+
 .navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: var(--light);
   padding: 0.5rem 1rem;
-  border-bottom: 1px solid rgba(33, 37, 41, 0.2);
-
-  .navbar-left {
-    display: flex;
-    align-items: center;
-
-    .logo {
-      cursor: pointer;
-      img {
-        height: 40px;
-      }
-    }
-
-    .nav-links {
-      display: flex;
-      list-style: none;
-      margin-left: 1rem;
-
-      li {
-        margin: 0 0.5rem;
-        padding: 0.5rem 0.75rem;
-        cursor: pointer;
-        border-radius: 4px;
-        transition: all 0.3s ease;
-
-        &:hover {
-          background-color: var(--primary);
-          color: var(--light);
-        }
-      }
-    }
-  }
-
-  .navbar-right {
-    display: flex;
-    gap: 0.5rem;
-
-    .btn {
-      padding: 0.4rem 0.9rem;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: 600;
-      transition: all 0.3s ease;
-
-      &.register {
-        background-color: var(--secondary);
-        color: var(--light);
-        &:hover {
-          background-color: color-mix(in srgb, var(--secondary) 90%, black);
-        }
-      }
-
-      &.login {
-        background-color: var(--primary);
-        color: var(--light);
-        &:hover {
-          background-color: color-mix(in srgb, var(--primary) 90%, black);
-        }
-      }
-    }
-  }
 }
 
-.navbar-toggle {
-  margin: 0.5rem 1rem;
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.logo {
+  color: var(--light);
+  font-size: 1.5rem;
+  font-weight: 700;
   cursor: pointer;
-  font-weight: bold;
-  color: var(--primary);
-  user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
+
+.menu-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.menu-links span {
+  color: var(--light);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.menu-links span:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  i{
+    margin-right: 0.5rem;
+  }
+}
+
+

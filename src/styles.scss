@@ -11,3 +11,31 @@ $accent: #fd7e14;
 $dark: #212529;
 $light: #f8f9fa;
 
+
+// Optional: Create a color map for easier iteration
+$colors: (
+  "primary": $primary,
+  "secondary": $secondary,
+  "success": $success,
+  "warning": $warning,
+  "danger": $danger,
+  "info": $info,
+  "accent": $accent,
+  "dark": $dark,
+  "light": $light
+);
+
+
+// Global styles
+:root {
+  --primary: #{$primary};
+  --secondary: #{$secondary};
+  --success: #{$success};
+  --warning: #{$warning};
+  --danger: #{$danger};
+  --info: #{$info};
+  --accent: #{$accent};
+  --dark: #{$dark};
+  --light: #{$light};
+}
+
