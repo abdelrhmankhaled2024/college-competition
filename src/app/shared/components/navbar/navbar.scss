@@ -1,0 +1,77 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--light);
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid rgba(33, 37, 41, 0.2);
+
+  .navbar-left {
+    display: flex;
+    align-items: center;
+
+    .logo {
+      cursor: pointer;
+      img {
+        height: 40px;
+      }
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      margin-left: 1rem;
+
+      li {
+        margin: 0 0.5rem;
+        padding: 0.5rem 0.75rem;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: var(--primary);
+          color: var(--light);
+        }
+      }
+    }
+  }
+
+  .navbar-right {
+    display: flex;
+    gap: 0.5rem;
+
+    .btn {
+      padding: 0.4rem 0.9rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+
+      &.register {
+        background-color: var(--secondary);
+        color: var(--light);
+        &:hover {
+          background-color: color-mix(in srgb, var(--secondary) 90%, black);
+        }
+      }
+
+      &.login {
+        background-color: var(--primary);
+        color: var(--light);
+        &:hover {
+          background-color: color-mix(in srgb, var(--primary) 90%, black);
+        }
+      }
+    }
+  }
+}
+
+.navbar-toggle {
+  margin: 0.5rem 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--primary);
+  user-select: none;
+}

@@ -1,1 +1,24 @@
-<p>navbar works!</p>
+<nav class="navbar" *ngIf="showNavbar">
+  <div class="navbar-left">
+    <div class="logo" (click)="navigateTo('home')">
+      <!-- Replace with your logo image or text -->
+      <img src="assets/logo.png" alt="Logo" />
+    </div>
+    <ul class="nav-links">
+      <li (click)="navigateTo('home')">Home</li>
+      <li (click)="navigateTo('projects')">Competitions</li>
+      <li (click)="navigateTo('winners')">Past Winners</li>
+      <li (click)="navigateTo('about')">About</li>
+    </ul>
+  </div>
+  <div class="navbar-right">
+    <button class="btn register" (click)="navigateTo('register')">Register</button>
+    <button class="btn login" (click)="navigateTo('login')">Login</button>
+  </div>
+</nav>
+
+<!-- Optional: Toggle button to hide/show navbar -->
+<div class="navbar-toggle" (click)="toggleNavbar()">
+  <span *ngIf="!showNavbar">&#9776; Show Navbar</span>
+  <span *ngIf="showNavbar">&#10006; Hide Navbar</span>
+</div>
