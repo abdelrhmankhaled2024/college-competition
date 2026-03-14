@@ -39,3 +39,272 @@ $colors: (
   --light: #{$light};
 }
 
+/* ===== GLOBAL BUTTON STYLES(override bootstrap default styles) ===== */
+.btn {
+  padding: 0.75rem 2rem;
+  font-weight: 500;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+
+  // Base hover effect for all buttons
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  // Active/Pressed state
+  &:active {
+    transform: translateY(0);
+    transition: all 0.1s ease;
+  }
+
+  // Focus state for accessibility
+  &:focus-visible {
+    outline: 2px solid #0d6efd;
+    outline-offset: 2px;
+  }
+}
+
+/* ===== BOOTSTRAP BUTTON VARIATIONS ===== */
+
+// Primary Button
+.btn-primary {
+  background-color: #0d6efd;
+  border: none;
+
+  &:hover {
+    background-color: #0b5ed7;
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.4);
+  }
+
+  &:active {
+    background-color: #0a58ca;
+  }
+}
+
+// Secondary Button
+.btn-secondary {
+  background-color: #6c757d;
+  border: none;
+
+  &:hover {
+    background-color: #5c636a;
+    box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+  }
+}
+
+// Success Button
+.btn-success {
+  background-color: #198754;
+  border: none;
+
+  &:hover {
+    background-color: #157347;
+    box-shadow: 0 5px 15px rgba(25, 135, 84, 0.4);
+  }
+}
+
+// Danger Button
+.btn-danger {
+  background-color: #dc3545;
+  border: none;
+
+  &:hover {
+    background-color: #bb2d3b;
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.4);
+  }
+}
+
+// Warning Button
+.btn-warning {
+  background-color: #ffc107;
+  border: none;
+  color: #000;
+
+  &:hover {
+    background-color: #ffca2c;
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.4);
+  }
+}
+
+// Info Button
+.btn-info {
+  background-color: #0dcaf0;
+  border: none;
+  color: #000;
+
+  &:hover {
+    background-color: #31d2f2;
+    box-shadow: 0 5px 15px rgba(13, 202, 240, 0.4);
+  }
+}
+
+// Light Button
+.btn-light {
+  background-color: #f8f9fa;
+  border: none;
+  color: #000;
+
+  &:hover {
+    background-color: #e9ecef;
+    box-shadow: 0 5px 15px rgba(248, 249, 250, 0.4);
+  }
+}
+
+// Dark Button
+.btn-dark {
+  background-color: #212529;
+  border: none;
+
+  &:hover {
+    background-color: #1a1e21;
+    box-shadow: 0 5px 15px rgba(33, 37, 41, 0.4);
+  }
+}
+
+/* ===== OUTLINE BUTTON VARIATIONS ===== */
+
+// Outline Primary
+.btn-outline-primary {
+  border: 2px solid #0d6efd;
+  color: #0d6efd;
+
+  &:hover {
+    background-color: #0d6efd;
+    color: #fff;
+    border-color: #0d6efd;
+    box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+  }
+}
+
+// Outline Secondary
+.btn-outline-secondary {
+  border: 2px solid #6c757d;
+  color: #6c757d;
+
+  &:hover {
+    background-color: #6c757d;
+    color: #fff;
+    border-color: #6c757d;
+    box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+  }
+}
+
+// Outline Success
+.btn-outline-success {
+  border: 2px solid #198754;
+  color: #198754;
+
+  &:hover {
+    background-color: #198754;
+    color: #fff;
+    border-color: #198754;
+    box-shadow: 0 5px 15px rgba(25, 135, 84, 0.3);
+  }
+}
+
+// Outline Danger
+.btn-outline-danger {
+  border: 2px solid #dc3545;
+  color: #dc3545;
+
+  &:hover {
+    background-color: #dc3545;
+    color: #fff;
+    border-color: #dc3545;
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+  }
+}
+
+// Outline Warning
+.btn-outline-warning {
+  border: 2px solid #ffc107;
+  color: #ffc107;
+
+  &:hover {
+    background-color: #ffc107;
+    color: #000;
+    border-color: #ffc107;
+    box-shadow: 0 5px 15px rgba(255, 193, 7, 0.3);
+  }
+}
+
+// Outline Info
+.btn-outline-info {
+  border: 2px solid #0dcaf0;
+  color: #0dcaf0;
+
+  &:hover {
+    background-color: #0dcaf0;
+    color: #000;
+    border-color: #0dcaf0;
+    box-shadow: 0 5px 15px rgba(13, 202, 240, 0.3);
+  }
+}
+
+// Outline Light
+.btn-outline-light {
+  border: 2px solid #f8f9fa;
+  color: #f8f9fa;
+
+  &:hover {
+    background-color: #f8f9fa;
+    color: #000;
+    border-color: #f8f9fa;
+    box-shadow: 0 5px 15px rgba(248, 249, 250, 0.3);
+  }
+}
+
+// Outline Dark
+.btn-outline-dark {
+  border: 2px solid #212529;
+  color: #212529;
+
+  &:hover {
+    background-color: #212529;
+    color: #fff;
+    border-color: #212529;
+    box-shadow: 0 5px 15px rgba(33, 37, 41, 0.3);
+  }
+}
+
+/* ===== BUTTON SIZES ===== */
+.btn-lg {
+  padding: 1rem 2.5rem;
+  font-size: 1.25rem;
+}
+
+.btn-sm {
+  padding: 0.5rem 1.5rem;
+  font-size: 0.875rem;
+}
+
+/* ===== DISABLED STATE ===== */
+.btn:disabled,
+.btn.disabled {
+  opacity: 0.65;
+  pointer-events: none;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+
+.card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid #e0e0e0;
+  border-radius: 30px;
+  .rounded-start {
+    border-bottom-left-radius: 30px !important;
+    border-top-left-radius: 30px !important;
+}
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.3);
+}
+
+
+

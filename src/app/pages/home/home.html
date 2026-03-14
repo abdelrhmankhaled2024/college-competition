@@ -1,1 +1,382 @@
-<p>home works!</p>
+<!-- upper section -->
+<section class="container-fluid upper-section">
+  <div class="container">
+    <h2>Showcase Your Innovation</h2>
+    <p>Join the most prestigious inter-college project competition and demonstrate your creative solutions to real-world problems.</p>
+    <div class="btn-container">
+      <button class="btn btn-outline-light" (click)="navigateTo('competitions')">
+        <i class="bi bi-trophy-fill"></i> Browse Competitions
+      </button>
+    </div>
+  </div>
+</section>
+<!-- middle section -->
+<section class="container middle-section py-5">
+  <h2>Featured Competitions</h2>
+  <p class="text-muted text-center">
+    Participate in our ongoing competitions and showcase your talent
+  </p>
+
+  <div class="row mt-4">
+    @for (competition of paginatedCompetitions; track competition.competitionId) {
+      <div class="col-md-4 mb-4">
+        <div class="card competition-card h-100 position-relative">
+
+          <div class="badge rounded-pill position-absolute top-0 end-0 m-3"
+            [ngClass]="getStatusClass(competition.status)">
+            {{ competition.status ?? 'Unknown' }}
+          </div>
+
+          <div class="card-body pt-4">
+            <h5 class="card-title">{{ competition.title }}</h5>
+            <p class="card-text">{{ competition.description }}</p>
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <span class="badge rounded-pill bg-primary">
+                <i class="fa fa-calendar"></i> Ends: {{ competition.endDate }}
+              </span>
+            </div>
+          </div>
+
+          <div class="card-footer bg-transparent">
+            <!-- View Details in its own row -->
+            <div class="row mt-2">
+              <div class="col-12">
+<a
+                  class="btn btn-outline-primary w-100"
+                  [routerLink]="['/submit-competition', competition.competitionId]"
+                >
+                  <i class="bi bi-eye"></i> View Details
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    }
+
+    @empty {
+      <p class="text-center text-muted">No competitions available at the moment.</p>
+    }
+  </div>
+
+  <!-- Pagination + View All -->
+  <div class="d-flex justify-content-between align-items-center mt-4">
+
+    <!-- Pagination -->
+    <nav>
+      <ul class="pagination mb-0">
+
+        <li class="page-item" [class.disabled]="currentPage() === 1">
+          <button class="page-link" (click)="currentPage.set(currentPage() - 1)">
+            <i class="bi bi-chevron-left"></i>
+          </button>
+        </li>
+
+        @for (page of getVisiblePages(); track page) {
+          @if (page === '...') {
+            <li class="page-item disabled">
+              <span class="page-link">...</span>
+            </li>
+          } @else {
+            <li class="page-item" [class.active]="currentPage() === page">
+              <button class="page-link" (click)="currentPage.set(+page)">{{ page }}</button>
+            </li>
+          }
+        }
+
+        <li class="page-item" [class.disabled]="currentPage() === totalPages">
+          <button class="page-link" (click)="currentPage.set(currentPage() + 1)">
+            <i class="bi bi-chevron-right"></i>
+          </button>
+        </li>
+
+      </ul>
+    </nav>
+
+  </div>
+
+    <!-- View All Button -->
+    <a class="btn btn-primary mt-4" [routerLink]="['/competitions']">
+      <i class="bi bi-grid-fill"></i> View All Competitions
+    </a>
+
+</section>
+<!-- how-it-works section -->
+<section class="how-it-works py-5 bg-light">
+  <div class="container">
+    <div class="section-heading text-center mb-5">
+      <h2 class="fw-bold">How It Works</h2>
+      <p class="text-muted">
+        Follow these simple steps to participate in our competitions
+      </p>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center">
+            <div class="step-icon mb-3">
+              <i class="fa fa-user-plus fa-3x text-primary"></i>
+            </div>
+            <h5 class="card-title">1. Register</h5>
+            <p class="card-text">
+              Create an account and complete your profile with your college information.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center">
+            <div class="step-icon mb-3">
+                                         <i class="fa fa-download fa-3x text-primary"></i>
+            </div>
+            <h5 class="card-title">2. Join Competition</h5>
+            <p class="card-text">
+              Browse available competitions and register for those that match your interests.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center">
+            <div class="step-icon mb-3">
+              <i class="fa fa-upload fa-3x text-primary"></i>
+            </div>
+            <h5 class="card-title">3. Submit Project</h5>
+            <p class="card-text">
+              Work on your project and submit it before the deadline with all required materials.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center">
+            <div class="step-icon mb-3">
+                      <i class="fa fa-trophy fa-3x text-primary"></i>
+            </div>
+            <h5 class="card-title">4. Win Prizes</h5>
+            <p class="card-text">
+              Get your projects evaluated by experts and win recognition and exciting prizes.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- past-winners section -->
+<section class="past-winners py-5">
+  <div class="container">
+    <div class="section-heading text-center mb-5">
+      <h2 class="fw-bold">Past Winners</h2>
+      <p class="text-muted">
+        Check out our previous competition winners and their amazing projects
+      </p>
+    </div>
+
+    <div class="row">
+
+      <!-- Winner Card 1 -->
+      <div class="col-md-6 mb-4">
+        <div class="card winner-card h-100">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img
+                src="https://images.pexels.com/photos/3153198/pexels-photo-3153198.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt="Project Image"
+                class="img-fluid rounded-start h-100 object-fit-cover"
+              >
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">Smart Health Monitoring System</h5>
+                <p class="card-text">
+                  An IoT-based health monitoring system that helps track vital signs and sends alerts to caregivers.
+                </p>
+                <div class="mb-2">
+                  <span class="badge mx-1 rounded-pill bg-info">IoT</span>
+                  <span class="badge mx-1 rounded-pill bg-info">Healthcare</span>
+                  <span class="badge mx-1 rounded-pill bg-info">Embedded Systems</span>
+                </div>
+                <p class="card-text">
+                  <small class="text-muted">By Team Innovators from Stanford University</small>
+                </p>
+                <span class="badge rounded-pill bg-warning text-dark">1st Place - Winter 2024</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Winner Card 2 -->
+      <div class="col-md-6 mb-4">
+        <div class="card winner-card h-100">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <img
+                src="https://images.pexels.com/photos/5082579/pexels-photo-5082579.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                alt="Project Image"
+                class="img-fluid rounded-start h-100 object-fit-cover"
+              >
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">EcoTrack - Environmental Monitoring</h5>
+                <p class="card-text">
+                  A comprehensive solution for tracking and analyzing environmental data to promote sustainability.
+                </p>
+                <div class="mb-2">
+                  <span class="badge mx-1 rounded-pill bg-info">Environmental</span>
+                  <span class="badge mx-1 rounded-pill bg-info">Data Science</span>
+                  <span class="badge mx-1 rounded-pill bg-info">Mobile App</span>
+                </div>
+                <p class="card-text">
+                  <small class="text-muted">By Team GreenTech from MIT</small>
+                </p>
+                <span class="badge rounded-pill bg-warning text-dark">1st Place - Summer 2024</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center mt-4">
+      <a [routerLink]="['/winners']" class="btn btn-outline-primary btn-lg">
+        <i class="fa fa-users"></i> View All Winners
+      </a>
+    </div>
+  </div>
+</section>
+<!-- testimonials section -->
+<section class="testimonials py-5 bg-light">
+  <div class="container">
+
+    <!-- Section Heading -->
+    <div class="section-heading text-center mb-5">
+      <h2 class="fw-bold">What Participants Say</h2>
+      <p class="text-muted">
+        Hear from our past participants about their experience
+      </p>
+    </div>
+
+    <div class="row">
+
+      <!-- Testimonial 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="card testimonial-card h-100">
+          <div class="card-body">
+            <div class="testimonial-quote mb-3">
+              <i class="fa fa-quote-left fa-2x text-primary opacity-50"></i>
+            </div>
+            <p class="card-text">
+              Participating in TechNova's AI competition was a game-changer for me.
+              The feedback from industry experts helped me refine my skills and opened doors to amazing opportunities.
+            </p>
+            <div class="d-flex align-items-center mt-4">
+              <img
+                src="https://images.pexels.com/photos/1462630/pexels-photo-1462630.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                width="50" height="50"
+                alt="Testimonial"
+                class="rounded-circle me-3"
+              >
+              <div>
+                <h6 class="mb-0 fw-bold">Michael Johnson</h6>
+                <small class="text-muted">Computer Science, Stanford</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="card testimonial-card h-100">
+          <div class="card-body">
+            <div class="testimonial-quote mb-3">
+              <i class="fa fa-quote-left fa-2x text-primary opacity-50"></i>
+            </div>
+            <p class="card-text">
+              The competition platform was easy to use and the organizers were incredibly supportive throughout the process.
+              I learned so much from collaborating with my teammates on our project.
+            </p>
+            <div class="d-flex align-items-center mt-4">
+              <img
+                src="https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                width="50" height="50"
+                alt="Testimonial"
+                class="rounded-circle me-3"
+              >
+              <div>
+                <h6 class="mb-0 fw-bold">Sarah Williams</h6>
+                <small class="text-muted">Electrical Engineering, MIT</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="card testimonial-card h-100">
+          <div class="card-body">
+            <div class="testimonial-quote mb-3">
+              <i class="fa fa-quote-left fa-2x text-primary opacity-50"></i>
+            </div>
+            <p class="card-text">
+              Winning the Web Development Hackathon gave our team incredible exposure.
+              We've since turned our project into a startup and secured funding thanks to the connections we made!
+            </p>
+            <div class="d-flex align-items-center mt-4">
+              <img
+                src="https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+                width="50" height="50"
+                alt="Testimonial"
+                class="rounded-circle me-3"
+              >
+              <div>
+                <h6 class="mb-0 fw-bold">David Chen</h6>
+                <small class="text-muted">Computer Engineering, Berkeley</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- cta section -->
+<section class="cta-section py-5">
+  <div class="container">
+    <div class="row align-items-center">
+
+      <!-- CTA Text -->
+      <div class="col-lg-8 mb-4 mb-lg-0">
+        <h2 class="text-white fw-bold mb-3">
+          Ready to Showcase Your Innovation?
+        </h2>
+        <p class="text-white-50 mb-0">
+          Join thousands of students from top colleges and universities.
+          Register today and start your journey toward recognition and success.
+        </p>
+      </div>
+
+      <!-- CTA Button -->
+      <div class="col-lg-4 text-lg-end">
+        <a [routerLink]="['/competitions']"  class="btn btn-light btn-lg">
+          <i class="fa fa-rocket"></i> Get Started Now
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>

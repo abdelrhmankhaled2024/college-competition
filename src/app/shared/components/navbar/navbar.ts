@@ -9,8 +9,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './navbar.scss',
 })
 export class Navbar {
-    showNavbar = true;
-
+    isLogedin:boolean = false;
+    userEmail="user@mail.com"
   constructor(private router: Router) {}
 
   navigateTo(path: string) {
@@ -18,6 +18,11 @@ export class Navbar {
   }
 
   toggleNavbar() {
-    this.showNavbar = !this.showNavbar;
+    this.isLogedin = !this.isLogedin;
+  }
+
+  logout(){
+    this.isLogedin = false;
+    this.router.navigate(['login']);
   }
 }

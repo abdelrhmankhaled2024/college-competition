@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -12,23 +13,47 @@ export const routes: Routes = [
   },
   {
     path: 'register',
-    loadComponent: () => import('./pages/register/register').then(m => m.Register)
+    loadComponent: () => import('./pages/register/register').then(m => m.Register),
+    canActivate: [authGuard],
+    data: { mode: 'guest' }
   },
   {
     path: 'login',
-    loadComponent: () => import('./pages/login/login').then(m => m.Login)
-  },
-  {
-    path: 'projects',
-    loadComponent: () => import('./pages/projects/projects').then(m => m.Projects)
+    loadComponent: () => import('./pages/login/login').then(m => m.Login),
+    canActivate: [authGuard],
+    data: { mode: 'guest' }
   },
   {
     path: 'students',
-    loadComponent: () => import('./pages/students/students').then(m => m.Students)
+    loadComponent: () => import('./pages/students/students').then(m => m.Students),
+    canActivate: [authGuard],
+    data: { mode: 'auth' }
   },
   {
-    path: 'submit-project',
-    loadComponent: () => import('./pages/submit-project/submit-project').then(m => m.SubmitProject)
+    path: 'profile',
+    loadComponent: () => import('./pages/profile/profile').then(m => m.Profile),
+    canActivate: [authGuard],
+    data: { mode: 'auth' }
+  },
+  {
+    path: 'projects',
+    loadComponent: () => import('./pages/projects/projects').then(m => m.Projects),
+    canActivate: [authGuard],
+    data: { mode: 'auth' }
+  },
+  {
+    path: 'project/:id',
+    loadComponent: () => import('./pages/submit-project/submit-project').then(m => m.SubmitProject),
+    canActivate: [authGuard],
+    data: { mode: 'auth' }
+  },
+  {
+    path: 'competitions',
+    loadComponent: () => import('./pages/competition/competitions').then(m => m.Competitions)
+  },
+  {
+    path: 'submit-competition/:id',
+    loadComponent: () => import('./pages/submit-competition/submit-competition').then(m => m.SubmitCompetition)
   },
   {
     path: 'winners',
@@ -37,6 +62,12 @@ export const routes: Routes = [
   {
     path: 'about',
     loadComponent: () => import('./pages/about/about').then(m => m.About)
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./pages/dashboard/dashboard').then(m => m.Dashboard),
+    canActivate: [authGuard],
+    data: { mode: 'auth' }
   },
   {
     path: '**',

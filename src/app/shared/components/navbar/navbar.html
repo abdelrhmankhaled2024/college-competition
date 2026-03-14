@@ -10,16 +10,31 @@
 
   <div class="menu-links">
     <span (click)="navigateTo('home')">Home</span>
-    <span (click)="navigateTo('projects')">Competitions</span>
+    <span (click)="navigateTo('competitions')">Competitions</span>
     <span (click)="navigateTo('winners')">Past Winners</span>
     <span (click)="navigateTo('about')">About</span>
   </div>
 </div>
   </div>
-  <div class="navbar-right">
+@if (!isLogedin) {
+    <div class="navbar-right">
     <button type="button" class="btn btn-outline-light me-2" (click)="navigateTo('login')"><i class="bi bi-box-arrow-in-right"></i>Login</button>
     <button type="button" class="btn btn-light" (click)="navigateTo('register')"><i class="bi bi-person-fill-add"></i>Register</button>
   </div>
+}
+@else {
+  <div class="dropdown">
+  <button class="btn btn-outline-light me-2  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    <i class="bi bi-person-circle"></i> {{userEmail}}
+  </button>
+  <ul class="dropdown-menu">
+    <li class="dropdown-item" (click)="navigateTo('dashboard')"><i class="bi bi-speedometer2"></i>Dashboard</li>
+    <li class="dropdown-item" (click)="navigateTo('profile')"><i class="bi bi-person"></i>My Profile</li>
+    <li class="dropdown-item" (click)="navigateTo('projects')"><i class="bi bi-briefcase"></i>My Projects</li>
+     <li class="dropdown-item" (click)="logout()"><i class="bi bi-box-arrow-right"></i>Logout</li>
+  </ul>
+</div>
+}
 </nav>
 
 </div>
