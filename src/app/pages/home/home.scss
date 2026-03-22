@@ -80,11 +80,10 @@
     }
   }
 }
+
 .middle-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  // Removed flex layout — it was collapsing Bootstrap's grid columns
+  text-align: center;
 
   h2 {
     position: relative;
@@ -110,33 +109,48 @@
     }
   }
 
-.pagination {
-  .page-link {
-    border-radius: 50% !important;
-    width: 38px;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 2px;
-    padding: 0;
+  // Reset text alignment inside the cards row
+  .row {
+    text-align: left;
   }
 
-  .page-item.disabled .page-link {
-    border-radius: 50% !important;
+  // Prevent "View Details" button text from wrapping vertically
+  .competition-card {
+    min-width: 0;
+
+    .btn {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
-  .page-item.active .page-link {
-    border-radius: 50% !important;
+  .pagination {
+    .page-link {
+      border-radius: 50% !important;
+      width: 38px;
+      height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 2px;
+      padding: 0;
+    }
+
+    .page-item.disabled .page-link {
+      border-radius: 50% !important;
+    }
+
+    .page-item.active .page-link {
+      border-radius: 50% !important;
+    }
   }
 }
 
-}
-
-
-
-.how-it-works ,.past-winners,.testimonials{
-    h2 {
+.how-it-works,
+.past-winners,
+.testimonials {
+  h2 {
     position: relative;
     padding-bottom: 1rem;
     margin-bottom: 1rem;
@@ -158,8 +172,9 @@
       height: 3px;
       background: var(--primary);
     }
-}}
+  }
+}
 
-.cta-section{
+.cta-section {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
 }

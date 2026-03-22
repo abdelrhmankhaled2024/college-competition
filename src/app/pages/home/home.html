@@ -10,6 +10,7 @@
     </div>
   </div>
 </section>
+
 <!-- middle section -->
 <section class="container middle-section py-5">
   <h2>Featured Competitions</h2>
@@ -19,7 +20,7 @@
 
   <div class="row mt-4">
     @for (competition of paginatedCompetitions; track competition.competitionId) {
-      <div class="col-md-4 mb-4">
+      <div class="col-sm-6 col-md-4 mb-4">
         <div class="card competition-card h-100 position-relative">
 
           <div class="badge rounded-pill position-absolute top-0 end-0 m-3"
@@ -38,10 +39,9 @@
           </div>
 
           <div class="card-footer bg-transparent">
-            <!-- View Details in its own row -->
             <div class="row mt-2">
               <div class="col-12">
-<a
+                <a
                   class="btn btn-outline-primary w-100"
                   [routerLink]="['/submit-competition', competition.competitionId]"
                 >
@@ -61,7 +61,7 @@
   </div>
 
   <!-- Pagination + View All -->
-  <div class="d-flex justify-content-between align-items-center mt-4">
+  <div class="d-flex justify-content-center align-items-center mt-4">
 
     <!-- Pagination -->
     <nav>
@@ -96,12 +96,13 @@
 
   </div>
 
-    <!-- View All Button -->
-    <a class="btn btn-primary mt-4" [routerLink]="['/competitions']">
-      <i class="bi bi-grid-fill"></i> View All Competitions
-    </a>
+  <!-- View All Button -->
+  <a class="btn btn-primary mt-4" [routerLink]="['/competitions']">
+    <i class="bi bi-grid-fill"></i> View All Competitions
+  </a>
 
 </section>
+
 <!-- how-it-works section -->
 <section class="how-it-works py-5 bg-light">
   <div class="container">
@@ -131,7 +132,7 @@
         <div class="card h-100 border-0 shadow-sm">
           <div class="card-body text-center">
             <div class="step-icon mb-3">
-                                         <i class="fa fa-download fa-3x text-primary"></i>
+              <i class="fa fa-download fa-3x text-primary"></i>
             </div>
             <h5 class="card-title">2. Join Competition</h5>
             <p class="card-text">
@@ -159,7 +160,7 @@
         <div class="card h-100 border-0 shadow-sm">
           <div class="card-body text-center">
             <div class="step-icon mb-3">
-                      <i class="fa fa-trophy fa-3x text-primary"></i>
+              <i class="fa fa-trophy fa-3x text-primary"></i>
             </div>
             <h5 class="card-title">4. Win Prizes</h5>
             <p class="card-text">
@@ -171,6 +172,7 @@
     </div>
   </div>
 </section>
+
 <!-- past-winners section -->
 <section class="past-winners py-5">
   <div class="container">
@@ -256,6 +258,7 @@
     </div>
   </div>
 </section>
+
 <!-- testimonials section -->
 <section class="testimonials py-5 bg-light">
   <div class="container">
@@ -354,6 +357,7 @@
     </div>
   </div>
 </section>
+
 <!-- cta section -->
 <section class="cta-section py-5">
   <div class="container">
@@ -372,7 +376,7 @@
 
       <!-- CTA Button -->
       <div class="col-lg-4 text-lg-end">
-        <a [routerLink]="['/competitions']"  class="btn btn-light btn-lg">
+        <a [routerLink]="['/competitions']" class="btn btn-light btn-lg">
           <i class="fa fa-rocket"></i> Get Started Now
         </a>
       </div>

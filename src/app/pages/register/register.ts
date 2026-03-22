@@ -83,79 +83,72 @@ export class Register implements OnInit {
   }
 
   // Handle form submission with proper loading state management
-  onSubmit(): void {
-    this.submitted = true;
+onSubmit(): void {
+  this.submitted = true;
 
-    // Stop if form is invalid
-    if (this.registerForm.invalid) {
-      this.toastr.warning('Please fill all required fields correctly', 'Validation Error', {
+  if (this.registerForm.invalid) {
+    this.toastr.warning('Please fill all required fields correctly', 'Validation Error', {
+      timeOut: 3000,
+      progressBar: true,
+      positionClass: 'toast-top-right',
+      closeButton: true
+    });
+    return;
+  }
+
+  this.loading.set(true);
+
+  const userData = {
+    fullName: this.registerForm.value.fullName,
+    collegeName: this.registerForm.value.collegeName,
+    email: this.registerForm.value.email,
+    password: this.registerForm.value.password
+  };
+
+  this.apiService.registerUser(userData).subscribe({
+    next: (response: any) => {
+      this.toastr.success('Registration successful! Please login to continue.', 'Success', {
         timeOut: 3000,
         progressBar: true,
         positionClass: 'toast-top-right',
         closeButton: true
       });
-      return;
-    }
 
-    // Set loading to true using signal
-    this.loading.set(true);
+      setTimeout(() => {
+        this.router.navigate(['/login']);
+      }, 2000);
+    },
+    error: (error) => {
+      console.error('Registration error:', error);
+      this.loading.set(false);
 
-    const userData = {
-      fullName: this.registerForm.value.fullName,
-      collegeName: this.registerForm.value.collegeName,
-      email: this.registerForm.value.email,
-      password: this.registerForm.value.password
-    };
-
-    // Use add operator to ensure loading is set to false in all cases
-    this.apiService.registerUser(userData).subscribe({
-      next: (response: any) => {
-        // Success - show toast and navigate
-        this.toastr.success('Registration successful! Please login to continue.', 'Success', {
-          timeOut: 3000,
+      if (error.status === 409) {
+        this.toastr.warning('Email already exists. Please use a different email.', 'Email Taken', {
+          timeOut: 4000,
           progressBar: true,
           positionClass: 'toast-top-right',
           closeButton: true
         });
-
-        // Navigate to login page after 2 seconds
-        setTimeout(() => {
-          this.router.navigate(['/login']);
-        }, 2000);
-      },
-      error: (error) => {
-        console.error('Registration error:', error);
-
-        // Handle specific error messages
-        if (error.status === 409) {
-          this.toastr.warning('Email already exists. Please use a different email.', 'Email Taken', {
-            timeOut: 4000,
-            progressBar: true,
-            positionClass: 'toast-top-right',
-            closeButton: true
-          });
-        } else if (error.status === 400) {
-          const errorMessage = error.error?.message || 'Invalid data provided. Please check your information.';
-          this.toastr.error(errorMessage, 'Bad Request', {
-            timeOut: 4000,
-            progressBar: true,
-            positionClass: 'toast-top-right',
-            closeButton: true
-          });
-        } else {
-          this.toastr.error('Registration failed. Please try again later.', 'Error', {
-            timeOut: 4000,
-            progressBar: true,
-            positionClass: 'toast-top-right',
-            closeButton: true
-          });
-        }
-      },
-      complete: () => {
-        // This runs after both next and error, ensuring loading is always set to false
-        console.log('Registration request completed');
-        this.loading.set(false);
+      } else if (error.status === 400) {
+        const errorMessage = error.error?.message || 'Invalid data provided. Please check your information.';
+        this.toastr.error(errorMessage, 'Bad Request', {
+          timeOut: 4000,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+          closeButton: true
+        });
+      } else {
+        this.toastr.error('Registration failed. Please try again later.', 'Error', {
+          timeOut: 4000,
+          progressBar: true,
+          positionClass: 'toast-top-right',
+          closeButton: true
+        });
       }
-    });
-  }
+    },
+    complete: () => {
+      this.loading.set(false);
+    }
+  });
+}
 }
