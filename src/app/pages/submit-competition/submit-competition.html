@@ -1,1 +1,184 @@
-<p>submit-competition works!</p>
+<div class="container py-4">
+  <div class="row">
+
+    <!-- Left: Form -->
+    <div class="col-lg-8">
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-transparent">
+          <h4 class="mb-0"><i class="fa fa-upload me-2 text-primary"></i>Submit Your Project</h4>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="projectForm" (ngSubmit)="onSubmit()">
+
+            <!-- Project Title -->
+            <div class="mb-4">
+              <label for="projectTitle" class="form-label">Project Title <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                id="projectTitle"
+                formControlName="projectTitle"
+                class="form-control"
+                placeholder="Enter your project title"
+                [ngClass]="{'is-invalid': submitted && f['projectTitle'].errors}"
+              >
+              @if (submitted && f['projectTitle'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['projectTitle'].errors['required']) { <span>Project title is required.</span> }
+                  @if (f['projectTitle'].errors['minlength']) { <span>Title must be at least 3 characters.</span> }
+                </div>
+              }
+            </div>
+
+            <!-- Description -->
+            <div class="mb-4">
+              <label for="projectDescription" class="form-label">Project Description <span class="text-danger">*</span></label>
+              <textarea
+                id="projectDescription"
+                formControlName="description"
+                class="form-control"
+                rows="5"
+                placeholder="Describe your project in detail..."
+                [ngClass]="{'is-invalid': submitted && f['description'].errors}"
+              ></textarea>
+              <div class="form-text">Explain the problem your project solves, your approach, and the technologies used.</div>
+              @if (submitted && f['description'].errors) {
+                <div class="invalid-feedback">Description is required.</div>
+              }
+            </div>
+
+            <!-- Team Members -->
+            <div class="mb-4">
+              <label for="teamMembers" class="form-label">Number of Team Members <span class="text-danger">*</span></label>
+              <input
+                type="number"
+                id="teamMembers"
+                formControlName="teamMembers"
+                class="form-control"
+                placeholder="e.g. 3"
+                min="1"
+                max="20"
+                [ngClass]="{'is-invalid': submitted && f['teamMembers'].errors}"
+              >
+              <div class="form-text">Enter the total number of members in your team (including yourself).</div>
+              @if (submitted && f['teamMembers'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['teamMembers'].errors['required']) { <span>Team members count is required.</span> }
+                  @if (f['teamMembers'].errors['min']) { <span>Must be at least 1 member.</span> }
+                  @if (f['teamMembers'].errors['max']) { <span>Cannot exceed 20 members.</span> }
+                </div>
+              }
+            </div>
+
+            <!-- GitHub Link -->
+            <div class="mb-4">
+              <label for="githubLink" class="form-label">GitHub Link <span class="text-danger">*</span></label>
+              <input
+                type="url"
+                id="githubLink"
+                formControlName="githubLink"
+                class="form-control"
+                placeholder="e.g., https://github.com/yourusername/project"
+                [ngClass]="{'is-invalid': submitted && f['githubLink'].errors}"
+              >
+              <div class="form-text">Link to your GitHub, GitLab, or other repository.</div>
+              @if (submitted && f['githubLink'].errors) {
+                <div class="invalid-feedback">GitHub link is required.</div>
+              }
+            </div>
+
+            <!-- Submission Date -->
+            <div class="mb-4">
+              <label for="submissionDate" class="form-label">Submission Date <span class="text-danger">*</span></label>
+              <input
+                type="date"
+                id="submissionDate"
+                formControlName="submissionDate"
+                class="form-control"
+                [ngClass]="{'is-invalid': submitted && f['submissionDate'].errors}"
+              >
+              @if (submitted && f['submissionDate'].errors) {
+                <div class="invalid-feedback">Submission date is required.</div>
+              }
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-flex gap-2">
+              <button type="submit" class="btn btn-primary" [disabled]="submitting()">
+                @if (submitting()) {
+                  <i class="fa fa-spinner fa-spin me-2"></i> Submitting...
+                } @else {
+                  <i class="fa fa-upload me-2"></i> Submit Project
+                }
+              </button>
+              <a [routerLink]="['/home']" class="btn btn-outline-secondary">
+                <i class="fa fa-arrow-left me-2"></i> Cancel
+              </a>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Sidebar -->
+    <div class="col-lg-4">
+
+      <!-- Submission Guidelines -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-header bg-transparent">
+          <h5 class="mb-0"><i class="fa fa-info-circle me-2 text-primary"></i>Submission Guidelines</h5>
+        </div>
+        <div class="card-body">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item px-0">
+              <i class="fa fa-check-circle text-success me-2"></i> Ensure your project adheres to the competition requirements
+            </li>
+            <li class="list-group-item px-0">
+              <i class="fa fa-check-circle text-success me-2"></i> Include a detailed description of your project
+            </li>
+            <li class="list-group-item px-0">
+              <i class="fa fa-check-circle text-success me-2"></i> Upload all required project files
+            </li>
+            <li class="list-group-item px-0">
+              <i class="fa fa-check-circle text-success me-2"></i> Provide clear installation/setup instructions
+            </li>
+            <li class="list-group-item px-0">
+              <i class="fa fa-check-circle text-success me-2"></i> List all team members who contributed
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Selected Competition -->
+      <div class="card shadow-sm">
+        <div class="card-header bg-transparent">
+          <h5 class="mb-0"><i class="fa fa-trophy me-2 text-warning"></i>Selected Competition</h5>
+        </div>
+        <div class="card-body">
+
+          @if (competitionLoading()) {
+            <div class="text-center py-3">
+              <i class="fa fa-spinner fa-spin text-primary"></i>
+              <p class="text-muted mt-2 mb-0 small">Loading...</p>
+            </div>
+          } @else if (competition) {
+            <h5 class="card-title">{{ competition.title }}</h5>
+            <div class="d-flex align-items-center mb-3 flex-wrap gap-2">
+              <span class="badge bg-danger">Deadline Soon</span>
+              <span class="text-muted small">
+                <i class="fa fa-calendar me-1"></i> {{ formatDate(competition.endDate) }}
+              </span>
+            </div>
+            <p class="text-muted small mb-0">{{ competition.description }}</p>
+          } @else {
+            <p class="text-muted mb-0">No competition details found.</p>
+          }
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>

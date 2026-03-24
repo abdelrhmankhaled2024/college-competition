@@ -1,0 +1,44 @@
+.winners-hero {
+  position: relative;
+  padding: 100px 0;
+  color: #fff;
+  text-align: center;
+  background-image: url('/assets/images/home.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #ffc10799, #fd7e1499, #0d6efdcc);
+    z-index: 1;
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.winners-underline {
+  width: 80px;
+  height: 3px;
+  background: var(--bs-warning);
+  border-radius: 2px;
+}
+
+.winner-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+  }
+}
+
+.winners-cta {
+  background: linear-gradient(135deg, #ffc107 0%, #fd7e14 50%, #0d6efd 100%);
+}

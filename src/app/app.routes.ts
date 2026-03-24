@@ -41,19 +41,18 @@ export const routes: Routes = [
     canActivate: [authGuard],
     data: { mode: 'auth' }
   },
+
   {
-    path: 'project/:id',
-    loadComponent: () => import('./pages/submit-project/submit-project').then(m => m.SubmitProject),
+    path: 'competitions',
     canActivate: [authGuard],
+    loadComponent: () => import('./pages/competition/competitions').then(m => m.Competitions),
     data: { mode: 'auth' }
   },
   {
-    path: 'competitions',
-    loadComponent: () => import('./pages/competition/competitions').then(m => m.Competitions)
-  },
-  {
     path: 'submit-competition/:id',
-    loadComponent: () => import('./pages/submit-competition/submit-competition').then(m => m.SubmitCompetition)
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/submit-competition/submit-competition').then(m => m.SubmitCompetition),
+    data: { mode: 'auth' }
   },
   {
     path: 'winners',

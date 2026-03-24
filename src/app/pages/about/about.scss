@@ -1,0 +1,39 @@
+.about-hero {
+  position: relative;
+  padding: 100px 0;
+  color: #fff;
+  text-align: center;
+  background-image: url('/assets/images/home.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #0d6efd99, #6f42c1d9);
+    z-index: 1;
+  }
+
+  .container {
+    position: relative;
+    z-index: 2;
+  }
+}
+
+.mission-underline {
+  width: 80px;
+  height: 3px;
+  background: var(--bs-primary);
+  border-radius: 2px;
+}
+
+.stat-number {
+  font-size: 2rem;
+}
+
+.about-cta {
+  background: linear-gradient(135deg, var(--bs-primary) 0%, #6f42c1 100%);
+}

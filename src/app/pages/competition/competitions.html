@@ -1,1 +1,204 @@
-<p>competition works!</p>
+<div class="container mt-5">
+
+  <div class="row g-4">
+
+    <!-- Left: Competitions Table -->
+    <div class="col-md-7">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+          <strong><i class="fa fa-trophy me-2 "></i>Competitions List</strong>
+          <span class="badge bg-light text-primary">{{ competitions().length }} total</span>
+        </div>
+
+        <div class="card-body p-0">
+
+          @if (loading()) {
+            <div class="text-center py-5">
+              <i class="fa fa-spinner fa-spin fa-2x text-primary"></i>
+              <p class="text-muted mt-2">Loading competitions...</p>
+            </div>
+          } @else {
+            <div class="table-responsive">
+              <table class="table table-bordered table-hover mb-0">
+                <thead class="table-light">
+                  <tr>
+                    <th class="text-center" style="width: 50px;">#</th>
+                    <th>Title</th>
+                    <th class="text-center">Start</th>
+                    <th class="text-center">End</th>
+                    <th class="text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (competition of paginatedCompetitions; track competition.competitionId) {
+                    <tr>
+                      <td class="text-center text-muted">{{ competition.competitionId }}</td>
+                      <td>{{ competition.title }}</td>
+                      <td class="text-center">{{ formatDate(competition.startDate) }}</td>
+                      <td class="text-center">{{ formatDate(competition.endDate) }}</td>
+                      <td class="text-center">
+  <span class="badge rounded-pill" [ngClass]="getStatusClass(competition.status)">
+    {{ competition.status || '-' }}
+  </span>
+</td>
+                    </tr>
+                  }
+                  @empty {
+                    <tr>
+                      <td colspan="5" class="text-center text-muted py-4">No competitions found.</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Pagination -->
+            @if (totalPages > 1) {
+              <div class="d-flex justify-content-center align-items-center py-3 border-top">
+                <nav>
+                  <ul class="pagination pagination-sm mb-0">
+
+                    <li class="page-item" [class.disabled]="currentPage() === 1">
+                      <button class="page-link" (click)="currentPage.set(currentPage() - 1)">
+                        <i class="bi bi-chevron-left"></i>
+                      </button>
+                    </li>
+
+                    @for (page of getVisiblePages(); track $index) {
+                      @if (page === '...') {
+                        <li class="page-item disabled">
+                          <span class="page-link">...</span>
+                        </li>
+                      } @else {
+                        <li class="page-item" [class.active]="currentPage() === page">
+                          <button class="page-link" (click)="currentPage.set(+page)">{{ page }}</button>
+                        </li>
+                      }
+                    }
+
+                    <li class="page-item" [class.disabled]="currentPage() === totalPages">
+                      <button class="page-link" (click)="currentPage.set(currentPage() + 1)">
+                        <i class="bi bi-chevron-right"></i>
+                      </button>
+                    </li>
+
+                  </ul>
+                </nav>
+              </div>
+            }
+          }
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Add Competition Form -->
+    <div class="col-md-5">
+      <div class="card shadow-sm">
+        <div class="card-header bg-success text-white">
+          <strong><i class="fa fa-plus-circle me-2"></i>Add Competition</strong>
+        </div>
+
+        <div class="card-body">
+          <form [formGroup]="competitionForm" (ngSubmit)="onSubmit()">
+
+            <!-- Title -->
+            <div class="mb-3">
+              <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+              <input
+                type="text"
+                id="title"
+                formControlName="title"
+                class="form-control"
+                placeholder="Enter competition title"
+                [ngClass]="{'is-invalid': submitted && f['title'].errors}"
+              >
+              @if (submitted && f['title'].errors) {
+                <div class="invalid-feedback">
+                  @if (f['title'].errors['required']) { <span>Title is required.</span> }
+                  @if (f['title'].errors['minlength']) { <span>Title must be at least 3 characters.</span> }
+                </div>
+              }
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label for="description" class="form-label">Description</label>
+              <textarea
+                id="description"
+                formControlName="description"
+                class="form-control"
+                rows="2"
+                placeholder="Enter description (optional)"
+              ></textarea>
+            </div>
+
+            <!-- Start Date -->
+            <div class="mb-3">
+              <label for="startDate" class="form-label">Start Date <span class="text-danger">*</span></label>
+              <input
+                type="date"
+                id="startDate"
+                formControlName="startDate"
+                class="form-control"
+                [ngClass]="{'is-invalid': submitted && f['startDate'].errors}"
+              >
+              @if (submitted && f['startDate'].errors) {
+                <div class="invalid-feedback">Start date is required.</div>
+              }
+            </div>
+
+            <!-- End Date -->
+            <div class="mb-3">
+              <label for="endDate" class="form-label">End Date <span class="text-danger">*</span></label>
+              <input
+                type="date"
+                id="endDate"
+                formControlName="endDate"
+                class="form-control"
+                [ngClass]="{'is-invalid': submitted && f['endDate'].errors}"
+              >
+              @if (submitted && f['endDate'].errors) {
+                <div class="invalid-feedback">End date is required.</div>
+              }
+            </div>
+
+            <!-- Status -->
+            <div class="mb-3">
+              <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+              <select
+                id="status"
+                formControlName="status"
+                class="form-select"
+                [ngClass]="{'is-invalid': submitted && f['status'].errors}"
+              >
+                @for (option of statusOptions; track option) {
+                  <option [value]="option">{{ option }}</option>
+                }
+              </select>
+              @if (submitted && f['status'].errors) {
+                <div class="invalid-feedback">Status is required.</div>
+              }
+            </div>
+
+            <!-- Buttons -->
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-success" [disabled]="submitting()">
+                @if (submitting()) {
+                  <i class="fa fa-spinner fa-spin me-2"></i> Saving...
+                } @else {
+                  <i class="fa fa-save me-2"></i> Save Competition
+                }
+              </button>
+              <button type="button" class="btn btn-secondary" (click)="clearForm()">
+                <i class="fa fa-times me-2"></i> Clear
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

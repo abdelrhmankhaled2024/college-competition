@@ -1,9 +1,11 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-winners',
-  imports: [],
+  standalone: true,
+  imports: [RouterLink],
   templateUrl: './winners.html',
-  styleUrl: './winners.scss',
+  styleUrls: ['./winners.scss']
 })
 export class Winners {}
