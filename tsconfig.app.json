@@ -2,10 +2,14 @@
 /* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "outDir": "./out-tsc/app",
-    "types": []
-  },
+ "compilerOptions": {
+  "outDir": "./out-tsc/app",
+  "types": [],
+  "baseUrl": "./",
+  "paths": {
+    "@services/*": ["src/app/shared/services/*"]
+  }
+},
   "include": [
     "src/**/*.ts"
   ],
