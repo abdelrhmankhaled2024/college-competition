@@ -6,7 +6,7 @@ import { GeneralApisService } from '../../shared/services/generalApis.service';
 @Component({
   selector: 'app-students',
   standalone: true,
-  imports: [CommonModule, NgClass],
+  imports: [CommonModule],
   templateUrl: './students.html',
   styleUrls: []
 })
